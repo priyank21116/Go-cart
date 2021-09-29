@@ -11,40 +11,37 @@ import { Grid } from '@mui/material';
 const Dashboard = () => {
       return (
             <div>
-              {/* VOICE MESSAGE DETECTED */}
-             
-
                   <Grid container spacing={3}>
 
-
-                        {/* SHOP DETAILS */}
                         <Grid item xs={6} md={7}>
+                              {/* SHOP DETAILS */}
                               <ShopDetail />
                               <ShopDetail />
+
+                              {/* VOICE MESSAGE DETECTED */}
                               <VoiceMsgDeatected />
                         </Grid>
 
 
-                        {/* VEDIO DETECTION */}
                         <Grid item xs={6} md={5}>
+                              {/* TOTAL BILL SECTION */}
                               <TotalAmount />
                         </Grid>
                   </Grid>
 
-                
+
 
                   <Grid container spacing={3}>
-                  
                         <Grid item xs={12} md={9}>
                               {/* ITEM LIST */}
-                              
                               <ItemsList />
                         </Grid>
 
                         <Grid item xs={12} md={3}>
-                              {/* TOTAL BILL SECTION */}
+
+                              {/* VEDIO DETECTION */}
                               <VideoLive />
-                              
+
                         </Grid>
                   </Grid>
 
