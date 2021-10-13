@@ -1,9 +1,10 @@
-import React,{useEffect,useState} from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Paper from '@mui/material/Paper';
-
+import firebase from '../firebase';
 //Import Dependences
 import * as tf from '@tensorflow/tfjs'
 import * as speech from '@tensorflow-models/speech-commands'
+import { Button } from '@mui/material';
 
 //create Recogniser
 // Listen for Actions
@@ -11,33 +12,106 @@ import * as speech from '@tensorflow-models/speech-commands'
 
 
 const VoiceMsgDeatected = () => {
-      //create model and action state
-const [model, setModel] = useState(null)
-const [action, setAction] = useState(null)
-const [labels, setLabels] = useState(null)
 
-const loadModel = async ()=>{
-      const recognizer = await speech.create("BROWSER_FFT")
-      console.log("Model Loaded")
-      // console.log("RECO",recognizer)
+      const synthRef = useRef(window.speechSynthesis)
+      const [commadslist, setcommadslist] = useState(null)
+      const [itemtoUpdate, setItemtoUpdate] = useState({
+            "itemid": 1.1,
+            "quantity": 1,
+            "pricepi": 120,
+            "discountp": 12,
+      })
+      let [commandCame, setCommand] = useState("")
 
-      // await recognizer.ensureModelLoaded()
-      console.log("RECO2",recognizer)
-      console.log(recognizer.wordLabels())
-      setModel(recognizer)
-      setLabels(recognizer.words);
-      console.log("LABELS",labels)
-}
-console.log("LABELS",labels)
+      const startShopping = () => {
+            const firestore = firebase.database().ref("/:userID");
+            let data = {
+                  "ShopId": 1,
+                  "allowed": true,
+                  "itemsList": [],
+                  "Total": 0
+            }
+            firestore.push(data)
+      }
 
-useEffect(()=>{loadModel()},[])
+
+      const addItem = () => {
+            const firestore = firebase.database().ref("/:userID/itemsList");
+            let data = {
+                  "itemid": 1.1,
+                  "quantity": 1,
+                  "pricepi": 120,
+                  "discountp": 12,
+            }
+            firestore.push(data)
+      }
+
+      const updateItem = () => {
+            const firestore = firebase.database().ref("/:userID/itemsList");
+      }
+
+      const onInstructiontoUpdate= (data)=>{
+              setItemtoUpdate(data)// see cnot correct
+      }
+
+
+
+
+
+
+      const instruction = [
+            ["Added", "Add __ Quatity __"],
+            ["Removed", "remove ___"],
+            ["Update", "Update __ Quantity to __"],
+            [" Ready to Checkout Billing your items", "Checkout"],
+            [" YOur Total amount to pay", "Get bill"],
+      ]
+
+
+      useEffect(() => {
+            const Allcommad = instruction.flatMap(([valueA, valueB]) => {
+                  return [
+                        { listenfor: valueB, confirmvoice: valueA }
+                  ]
+            })
+            console.log("LAL", Allcommad)
+            setcommadslist(Allcommad)
+      }, [])
+
+
+      const utterloud = (choice) => {
+            console.log("1", choice)
+            const utter = new SpeechSynthesisUtterance(choice.confirmvoice)
+            console.log("LLLLLLL", utter)
+            synthRef.current.speak(utter)
+      }
+
+
+
+
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+      const recognition = new SpeechRecognition();
+
+      recognition.onstart = function () {
+            console.log("READY TO LISTen")
+      }
+
+      recognition.onresult = function (e) {
+            console.log("RESUILT", e)
+            setCommand(e)
+      }
 
       return (
-            <Paper elevation={3} style={{backgroundColor : "#ffccdd",marginTop:25,marginBottom:25,  borderRadius: 15, height:50,justifyContent:"center",textAlign:"center"}}>
-           
-                VoiceMsgDetected
-            
-            </Paper>
+            <>
+                  <Paper elevation={3} style={{ backgroundColor: "#ffccdd", marginTop: 25, marginBottom: 25, borderRadius: 15, height: 50, justifyContent: "center", textAlign: "center" }}>
+
+                        VoiceMsgDetected
+
+                  </Paper>
+                  <Button onClick={() => { recognition.start() }} variant="contained">Contained</Button>
+                  <Button onClick={() => { utterloud(commadslist[0]) }} variant="contained">say</Button>
+            </>
       )
 }
 

@@ -1,17 +1,14 @@
 import React, { useState } from 'react'
 import { getAuth, signInWithPhoneNumber, RecaptchaVerifier } from "firebase/auth";
-import firebase from '../firebase'
+// import firebase from '../firebase'
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 
-import app from '../firebase';
+// import app from '../firebase';
 import { Button } from '@mui/material';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Container from '@mui/material/Container';
-
-
-
 
 
 
