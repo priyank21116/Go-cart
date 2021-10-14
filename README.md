@@ -1,4 +1,22 @@
-# Getting Started with Create React App
+# About 
+Its an web app currently underbuild.
+Its one step solution for malls and shop.
+
+
+## Tech Used
+
+- React
+- Tensorflow
+- Firebase database
+- fire base Auth
+- keras - opencv
+- Material-ui
+
+- Vscode
+- Jupyter Notebook
+
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
