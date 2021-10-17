@@ -15,8 +15,8 @@ const Dashboard = () => {
 
                         <Grid item xs={6} md={7}>
                               {/* SHOP DETAILS */}
-                              <ShopDetail />
-                              <ShopDetail />
+                              {/*  <ShopDetail /> */}
+                              <ShopDetail /> 
 
                               {/* VOICE MESSAGE DETECTED */}
                               <VoiceMsgDeatected />
