@@ -1,6 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react'
 import Paper from '@mui/material/Paper';
-import firebase from '../firebase';
+
+
+// import firebase from '../firebaseConfig';
+// import  firebase from 'firebase';
+
+import database from '../firebase';
+
 //Import Dependences
 import * as tf from '@tensorflow/tfjs'
 import * as speech from '@tensorflow-models/speech-commands'
@@ -24,7 +30,7 @@ const VoiceMsgDeatected = () => {
       let [commandCame, setCommand] = useState("")
 
       const startShopping = () => {
-            const firestore = firebase.database().ref("/:userID");
+            const firestore = database.ref("/:userID");
             let data = {
                   "ShopId": 1,
                   "allowed": true,
@@ -36,7 +42,7 @@ const VoiceMsgDeatected = () => {
 
 
       const addItem = () => {
-            const firestore = firebase.database().ref("/:userID/itemsList");
+            const firestore = database.ref("/:userID/itemsList");
             let data = {
                   "itemid": 1.1,
                   "quantity": 1,
@@ -47,11 +53,25 @@ const VoiceMsgDeatected = () => {
       }
 
       const updateItem = () => {
-            const firestore = firebase.database().ref("/:userID/itemsList");
+            const firestore = database.ref("/:userID/itemsList").child(`id`);
+            firestore.update({
+                  quantity:'',
+                  pricepi: 0,
+            })
+            OnupdateItemlistCall()
+      }
+
+      const OnupdateItemlistCall =()=>{
+            //get the item
       }
 
       const onInstructiontoUpdate= (data)=>{
               setItemtoUpdate(data)// see cnot correct
+      }
+
+      const removeItem =(id)=>{
+            const firestore = database.ref("/:userID/itemsList").child(`id`);
+            firestore.remove()
       }
 
 

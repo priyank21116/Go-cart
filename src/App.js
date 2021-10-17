@@ -3,7 +3,7 @@ import Paper from '@mui/material/Paper';
 
 import Dashboard from './ScreensCustomer/Dashboard';
 import Verification from './ScreensCustomer/Verification';
-
+import Shop from './ScreensS/Shop';
 import FirebaseCrud from './FirebaseCrud';
 
 function App() {
@@ -15,8 +15,9 @@ function App() {
         
         {/* DASHBOARD */}
 
-        <Dashboard />
-        <FirebaseCrud />
+        {/* <Dashboard /> */}
+        {/* <FirebaseCrud /> */}
+        <Shop />
 
       </div>
     </Paper>

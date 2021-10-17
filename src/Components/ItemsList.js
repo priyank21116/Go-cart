@@ -8,7 +8,9 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-import firebase from '../firebase';
+// import  firebase from 'firebase';
+import database from '../firebase';
+
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
       [`&.${tableCellClasses.head}`]: {
@@ -48,7 +50,7 @@ const ItemsList = () => {
       const [userlist, setuserlist] = React.useState()
 
       React.useEffect(()=>{
-         const firestore = firebase.database().ref("/:userID/itemsList");
+         const firestore = database.ref("/:userID/itemsList");
          firestore.on('value',(res)=>{
                const data = res.val();
                let listItemsInfo =[];
