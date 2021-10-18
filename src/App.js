@@ -15,9 +15,9 @@ function App() {
         
         {/* DASHBOARD */}
 
-        {/* <Dashboard /> */}
+        <Dashboard />
         {/* <FirebaseCrud /> */}
-        <Shop />
+        {/* <Shop /> */}
 
       </div>
     </Paper>

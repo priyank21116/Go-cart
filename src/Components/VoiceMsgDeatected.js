@@ -17,20 +17,17 @@ import { Button } from '@mui/material';
 // Display command to screen
 
 
-const VoiceMsgDeatected = () => {
+const VoiceMsgDeatected = ({shopUnquieId}) => {
 
       const synthRef = useRef(window.speechSynthesis)
       const [commadslist, setcommadslist] = useState(null)
-      const [itemtoUpdate, setItemtoUpdate] = useState({
-            "itemid": 1.1,
-            "quantity": 1,
-            "pricepi": 120,
-            "discountp": 12,
-      })
       let [commandCame, setCommand] = useState("")
+      const [lastCommand, setlastCommand] = useState([])
+      const [itemtoUpdate, setItemtoUpdate] = useState({  itemId: '',  quantity: '',   pricepi: '',   discountp: '',  })
 
+ const customerID = '12qw32'
       const startShopping = () => {
-            const firestore = database.ref("/:userID");
+            const firestore = database.ref("/:customerID");
             let data = {
                   "ShopId": 1,
                   "allowed": true,
@@ -55,26 +52,24 @@ const VoiceMsgDeatected = () => {
       const updateItem = () => {
             const firestore = database.ref("/:userID/itemsList").child(`id`);
             firestore.update({
-                  quantity:'',
+                  quantity: '',
                   pricepi: 0,
             })
             OnupdateItemlistCall()
       }
 
-      const OnupdateItemlistCall =()=>{
+      const OnupdateItemlistCall = () => {
             //get the item
       }
 
-      const onInstructiontoUpdate= (data)=>{
-              setItemtoUpdate(data)// see cnot correct
+      const onInstructiontoUpdate = (data) => {
+            setItemtoUpdate(data)// see cnot correct
       }
 
-      const removeItem =(id)=>{
+      const removeItem = (id) => {
             const firestore = database.ref("/:userID/itemsList").child(`id`);
             firestore.remove()
       }
-
-
 
 
 
@@ -94,7 +89,7 @@ const VoiceMsgDeatected = () => {
                         { listenfor: valueB, confirmvoice: valueA }
                   ]
             })
-            console.log("LAL", Allcommad)
+            // console.log("LAL", Allcommad)
             setcommadslist(Allcommad)
       }, [])
 
@@ -109,16 +104,21 @@ const VoiceMsgDeatected = () => {
 
 
 
-      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
-      const recognition = new SpeechRecognition();
+      const recognition = new window.SpeechRecognition();
+      recognition.interimResults = true;
 
       recognition.onstart = function () {
             console.log("READY TO LISTen")
       }
 
       recognition.onresult = function (e) {
-            console.log("RESUILT", e)
+            const text = Array.from(e.results)
+                  .map(result => result[0])
+                  .map(result => result.transcript)
+                  .join(' ')
+            console.log("RESUILT", text)
             setCommand(e)
       }
 

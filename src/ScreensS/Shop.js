@@ -22,7 +22,7 @@ const Shop = () => {
 
       const [shopDetail, setshopDetail] = useState({
             ShopName: '',
-            ShopUnquieId: '',
+            shopUnquieId: '',
             ShopContact: '',
             Items: []
       })
@@ -68,8 +68,8 @@ const Shop = () => {
                         <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
                               <OutlinedInput
                                     id="outlined-adornment-weight"
-                                    value={shopDetail.ShopUnquieId}
-                                    onChange={handleChange('ShopUnquieId')}
+                                    value={shopDetail.shopUnquieId}
+                                    onChange={handleChange('shopUnquieId')}
                                     
                                     aria-describedby="outlined-weight-helper-text"
                                     inputProps={{

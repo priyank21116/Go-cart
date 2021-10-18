@@ -32,64 +32,52 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
       },
 }));
 
-function createData(name, calories, fat, carbs, protein) {
-      return { name, calories, fat, carbs, protein };
-}
+// function createData(name, calories, fat, carbs, protein) {
+//       return { name, calories, fat, carbs, protein };
+// }
 
-const rows = [
-      createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-      createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-      createData('Eclair', 262, 16.0, 24, 6.0),
-      createData('Cupcake', 305, 3.7, 67, 4.3),
-      createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
+// const rows = [
+//       createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
+//       createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
+//       createData('Eclair', 262, 16.0, 24, 6.0),
+//       createData('Cupcake', 305, 3.7, 67, 4.3),
+//       createData('Gingerbread', 356, 16.0, 49, 3.9),
+// ];
 
 
-const ItemsList = () => {
+const ItemsList = ({CartItems}) => {
 
-      const [userlist, setuserlist] = React.useState()
-
-      React.useEffect(()=>{
-         const firestore = database.ref("/:userID/itemsList");
-         firestore.on('value',(res)=>{
-               const data = res.val();
-               let listItemsInfo =[];
-               for(let id in data){
-                  listItemsInfo.push({
-                        "itemid" : id,
-                        "quantity": data[id].quantity,
-                        "pricepi":data[id].pricepi,
-                        "discountp": data[id].discountp,
-                     })
-               }
-               setuserlist(listItemsInfo)
-         })
-
-      },[])
-
+      
+console.log("::::::::::",CartItems)
       return (
             <Paper elevation={8} style={{ backgroundColor: "#99ffff", borderRadius: 15, height: 550, justifyContent: "center", textAlign: "center" }}>
                   <TableContainer component={Paper}>
                         <Table sx={{ minWidth: 700 }} aria-label="customized table">
                               <TableHead>
                                     <TableRow>
-                                          <StyledTableCell>Dessert (100g serving)</StyledTableCell>
-                                          <StyledTableCell align="right">Calories</StyledTableCell>
-                                          <StyledTableCell align="right">Fat&nbsp;(g)</StyledTableCell>
-                                          <StyledTableCell align="right">Carbs&nbsp;(g)</StyledTableCell>
-                                          <StyledTableCell align="right">Protein&nbsp;(g)</StyledTableCell>
+                                          <StyledTableCell>S.No.</StyledTableCell>
+                                          <StyledTableCell>Item Id</StyledTableCell>
+                                          <StyledTableCell >Item name</StyledTableCell>
+                                          <StyledTableCell align="right">Quantity</StyledTableCell>
+                                          <StyledTableCell align="right">MRP</StyledTableCell>
+                                          <StyledTableCell align="right">price</StyledTableCell>
+                                          <StyledTableCell align="right">Total</StyledTableCell>
+
                                     </TableRow>
                               </TableHead>
                               <TableBody>
-                                    {rows.map((row) => (
-                                          <StyledTableRow key={row.name}>
+                                    {CartItems?.map((row,i) => (
+                                          <StyledTableRow key={row.itemId}>
+                                          <StyledTableCell >{i}</StyledTableCell>
+                                          <StyledTableCell >{row.itemId}</StyledTableCell>
+
                                                 <StyledTableCell component="th" scope="row">
-                                                      {row.name}
+                                                      {row.itemName}
                                                 </StyledTableCell>
-                                                <StyledTableCell align="right">{row.calories}</StyledTableCell>
-                                                <StyledTableCell align="right">{row.fat}</StyledTableCell>
-                                                <StyledTableCell align="right">{row.carbs}</StyledTableCell>
-                                                <StyledTableCell align="right">{row.protein}</StyledTableCell>
+                                                <StyledTableCell align="right">{row.quantity}</StyledTableCell>
+                                                <StyledTableCell align="right">{row.priceperItem}</StyledTableCell>
+                                                <StyledTableCell align="right">{row.priceperItem-1}</StyledTableCell>
+                                                <StyledTableCell align="right">{row.quantity * (row.priceperItem -1)}</StyledTableCell>
                                           </StyledTableRow>
                                     ))}
                               </TableBody>
