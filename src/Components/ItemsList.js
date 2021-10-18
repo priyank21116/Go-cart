@@ -45,12 +45,12 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 // ];
 
 
-const ItemsList = ({CartItems}) => {
+const ItemsList = ({ CartItems }) => {
 
-      
-console.log("::::::::::",CartItems)
+
+      console.log("::::::::::", CartItems)
       return (
-            <Paper elevation={8} style={{ backgroundColor: "#99ffff", borderRadius: 15, height: 550, justifyContent: "center", textAlign: "center" }}>
+            <Paper elevation={8} style={{ backgroundColor: "#99ffff", borderRadius: 15, height: 550, justifyContent: "center", textAlign: "center",margin:0,padding:20 }}>
                   <TableContainer component={Paper}>
                         <Table sx={{ minWidth: 700 }} aria-label="customized table">
                               <TableHead>
@@ -66,18 +66,18 @@ console.log("::::::::::",CartItems)
                                     </TableRow>
                               </TableHead>
                               <TableBody>
-                                    {CartItems?.map((row,i) => (
+                                    {CartItems?.map((row, i) => (
                                           <StyledTableRow key={row.itemId}>
-                                          <StyledTableCell >{i}</StyledTableCell>
-                                          <StyledTableCell >{row.itemId}</StyledTableCell>
+                                                <StyledTableCell >{i +1}</StyledTableCell>
+                                                <StyledTableCell >{row.itemId}</StyledTableCell>
 
                                                 <StyledTableCell component="th" scope="row">
                                                       {row.itemName}
                                                 </StyledTableCell>
                                                 <StyledTableCell align="right">{row.quantity}</StyledTableCell>
                                                 <StyledTableCell align="right">{row.priceperItem}</StyledTableCell>
-                                                <StyledTableCell align="right">{row.priceperItem-1}</StyledTableCell>
-                                                <StyledTableCell align="right">{row.quantity * (row.priceperItem -1)}</StyledTableCell>
+                                                <StyledTableCell align="right">{row.priceperItem - 1}</StyledTableCell>
+                                                <StyledTableCell align="right">{row.quantity * (row.priceperItem - 1)}</StyledTableCell>
                                           </StyledTableRow>
                                     ))}
                               </TableBody>
