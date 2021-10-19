@@ -34,9 +34,9 @@ const VoiceMsgDeatected = ({ addToCart, checkout, removeItemFCart, updateItemOnC
 
 
       const utterloud = (choice) => {
-            console.log("1", choice)
+
             const utter = new SpeechSynthesisUtterance(choice.confirmvoice)
-            console.log("LLLLLLL", utter)
+
             synthRef.current.speak(utter)
       }
 
@@ -55,8 +55,39 @@ const VoiceMsgDeatected = ({ addToCart, checkout, removeItemFCart, updateItemOnC
                   .map(result => result.transcript)
                   .join(' ')
             console.log("RESUILT", text)
-            setCommand(text)
+            setCommand(text);
 
+            let mtArr = text.split(" ")
+
+            if (e.results[0].isFinal) {
+                  if (text.includes('add')) {
+                        console.log("ADDDDDDDDD",mtArr)
+                        utterloud(commadslist[0])
+                        addToCart(mtArr[1], mtArr[3])
+
+                  }
+                  if (text.includes('remove')) {
+                        console.log("REMOVED",mtArr)
+
+                        removeItemFCart(mtArr[1])
+                        utterloud(commadslist[1])
+
+                  }
+                  if (text.includes('update')) {
+                        console.log("UPDATE",mtArr)
+
+                        updateItemOnCart(mtArr[1], mtArr[3])
+                        utterloud(commadslist[2])
+
+                  }
+                  if (text.includes('checkout')) {
+                        console.log("checkout",mtArr)
+
+                        checkout()
+                        utterloud(commadslist[3])
+
+                  }
+            }
 
             // if(text.split[0]==xx){
             // utterloud(textobject)
@@ -71,14 +102,23 @@ const VoiceMsgDeatected = ({ addToCart, checkout, removeItemFCart, updateItemOnC
 
       return (
             <>
-                  <Paper elevation={3} style={{ backgroundColor: "#ffccdd", marginTop: 25, marginBottom: 25, borderRadius: 15, height: 50, justifyContent: "center" }}>
+                  <Paper elevation={3} style={{ backgroundColor: "#ffccdd", marginTop: 50, marginBottom: 75, borderRadius: 15, height: 50, justifyContent: "center" }}>
                         <h2>
                               {commandCame}
                         </h2>
-                        <div style={{ alignItems: 'center',textAlign:'right',justifyContent: "center"  }}>
-                        <Button  onClick={() => { recognition.start() }} variant="contained">Contained</Button>      
+                        <div style={{ alignItems: 'center', textAlign: 'right', justifyContent: "center" }}>
+                              <Button onClick={() => { utterloud(commadslist[0]); addToCart("#13", "3") }} variant="contained">AddItem13</Button>
+                              <Button onClick={() => { utterloud(commadslist[0]); addToCart("#14", 12) }} variant="contained">AddItem12</Button>
+                              <Button onClick={() => { utterloud(commadslist[0]); addToCart("#15", 12) }} variant="contained">AddItem12</Button>
+                              <Button onClick={() => { utterloud(commadslist[0]); addToCart("#12", 12) }} variant="contained">AddItem12</Button>
+
+                              <Button onClick={() => { utterloud(commadslist[1]); removeItemFCart("#14") }} variant="contained">remove</Button>
+                              <Button onClick={() => { utterloud(commadslist[2]); updateItemOnCart("#13", 6) }} variant="contained">update</Button>
+                              <Button onClick={() => {utterloud(commadslist[3]); checkout() }} variant="contained">checkout</Button>
+                              <Button onClick={() => { recognition.start() }} variant="contained">Contained</Button>
+
                         </div>
-                        
+
                   </Paper>
 
 

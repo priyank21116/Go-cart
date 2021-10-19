@@ -48,11 +48,11 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 const ItemsList = ({ CartItems }) => {
 
 
-      console.log("::::::::::", CartItems)
+      // console.log("::::::::::", CartItems)
       return (
             <Paper elevation={8} style={{ backgroundColor: "#99ffff", borderRadius: 15, height: 550, justifyContent: "center", textAlign: "center",margin:0,padding:20 }}>
                   <TableContainer component={Paper}>
-                        <Table sx={{ minWidth: 700 }} aria-label="customized table">
+                        <Table stickyHeader sx={{ minWidth: 700 }} aria-label="customized table">
                               <TableHead>
                                     <TableRow>
                                           <StyledTableCell>S.No.</StyledTableCell>
