@@ -1,6 +1,6 @@
 # About 
-Its an web app currently underbuild.
-Its one step solution for malls and shop.
+Its one step solution for malls and shop as it replace most tedious part of shopping in stores i.e. billing counter. It adds items to invoice on go.
+A user just needs to speak item id and quantity. It detects voice commands and processes it. A tensorflow mask detection model is equiped in appp to keep mask check on customers
 
 
 ## Tech Used
@@ -9,7 +9,7 @@ Its one step solution for malls and shop.
 - Tensorflow
 - Firebase database
 - fire base Auth
-- keras - opencv
+- keras 
 - Material-ui
 
 - Vscode
